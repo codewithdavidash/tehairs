@@ -1,0 +1,2 @@
+
+Burgundy is made of 50% red, 0% green, and 13% blue. The CMYK percentages are 0% cyan, 100% magenta, 75% yellow, 50% black.

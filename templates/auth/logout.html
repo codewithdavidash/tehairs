@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Ended | TE Hairs</title>
+    <link rel="shortcut icon" href="{% static 'images/2.jpg' %}" type="image/x-icon">
+    <script src="{% static 'js/3.4.5.js' %}"></script>
+    <style>
+        .c {
+            color: rgb(50%, 0%, 13%);
+        }
+
+        .bg {
+            background-color: rgb(50%, 0%, 13%);
+        }
+    </style>
+
+    {% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert("{{ msg }}");
+    </script>
+    {% endfor %}
+    {% endif %}
+
+</head>
+
+<body>
+    <h1 class="text-center mt-40">You have sucessfully been logged out. Click <a href="{% url 'login' %}" class="text-purple-500 hover:text-purple-600 hover:underline">here</a> to login again</h1>
+</body>
+
+</html>

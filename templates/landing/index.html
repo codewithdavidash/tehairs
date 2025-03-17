@@ -1,0 +1,194 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+{% block title %}
+{% load humanize %}
+{% if request.user.is_authenticated %}
+Home
+{% else %}
+Welcome
+{% endif %}
+
+{% endblock title %}
+{% block content %}
+<section class="bg-white dark:bg-gray-900">
+    <div class="grid max-w-screen-xl px-4 py-8 lg:py-10 mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
+        <div class="mr-auto place-self-center lg:col-span-7">
+            <h1
+                class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+                Welcome to TE Hairs – Where Style Begins
+            </h1>
+            <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Discover
+                expert hairdressing tailored to you. From bold transformations to effortless trims, our stylists craft
+                looks that enhance your confidence and beauty. Book your appointment today and let us bring your hair
+                goals to life!
+            </p>
+            <a href="#"
+                class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                Get started
+                <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </a>
+            <a href="{% url 'products' %}"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                Our Products
+            </a>
+        </div>
+        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+            <img src="{% static 'images/bg.jpg' %}" alt="mockup" class="h-[42rem] rounded">
+        </div>
+    </div>
+</section>
+<section class="bg-white dark:bg-gray-900 lg:px-6 py-12">
+    <h1 class="font-bold flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" fill="red"
+                d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+            <path stroke-linecap="round" stroke-linejoin="round" fill="orange"
+                d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+        </svg>
+        HOT SECTION
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd"
+                d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+                clip-rule="evenodd" />
+        </svg>
+    </h1>
+    <div class="py-12 lg:py-20 lg:px-12 px-6 flex items-center justify-center">
+        <div class="grid lg:grid-cols-4 lg:gap-10 gap-5">
+
+            {% for x in hot %}
+            {% if x.label == 'H' %}
+            <a href="{{ x.get_absolute_url }}" class="hover:shadow-2xl w-full h-fit rounded-lg mx-auto">
+                <img src="{{ x.image.url }}" alt="{{ x.title }}" class="h-[20rem] w-full rounded-t-lg">
+                <div class="lg:px-4 p-3 rounded-b-lg shadow lg:py-4">
+                    <h1 class="text-xs font-bold text-orange-500 flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" fill="orange"
+                                d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" fill="yellow"
+                                d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                        </svg>
+                        HOT
+                    </h1>
+                    <p class="font-thin tracking-tight text-lg">
+                        {{ x.title }}
+                    </p>
+                    <p class="font-black text-xl">
+                        {% if x.discount_price %}
+                        &#8358;{{ x.discount_price|intcomma }}
+                        {% else %}
+                        &#8358;{{ x.price|intcomma }}
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <br><br><br>
+    </div>
+
+</section>
+<section class="bg-white dark:bg-gray-900 lg:px-6 lg:py-12">
+    <h1 class="font-bold text-blue-500 flex items-center gap-1">
+        <p class="font-black text-2xl bg-blue-500 p-1 rounded-full"></p>
+        NEW
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd"
+                d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+                clip-rule="evenodd" />
+        </svg>
+    </h1>
+    <div class="py-20 px-12 flex items-center justify-center">
+        <div class="grid lg:grid-cols-4 lg:gap-10 gap-5">
+
+            {% for x in hot %}
+            {% if x.label == 'N' %}
+            <a href="{{ x.get_absolute_url }}" class="hover:shadow-2xl h-fit w-full rounded-lg">
+                <img src="{{ x.image.url }}" alt="{{ x.title }}" class="h-[20rem] w-full rounded-t-lg">
+                <div class="lg:px-4 rounded-b-lg shadow lg:py-4 p-3">
+                    <h1 class="text-xs font-bold text-blue-500 flex items-center gap-1">
+                        <p class="font-black text-2xl bg-blue-500 p-1 rounded-full"></p>
+                        NEW
+                    </h1>
+                    <p class="font-thin tracking-tight text-lg">
+                        {{ x.title }}
+                    </p>
+                    <p class="font-black text-xl">
+                        {% if x.discount_price %}
+                        &#8358;{{ x.discount_price|intcomma }}
+                        {% else %}
+                        &#8358;{{ x.price|intcomma }}
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <br><br><br>
+    </div>
+
+</section>
+<section class="bg-white dark:bg-gray-900 lg:px-6 lg:py-12">
+    <h1 class="font-bold flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-teal-500">
+            <path fill-rule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
+                clip-rule="evenodd" />
+        </svg>
+        RARE
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd"
+                d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+                clip-rule="evenodd" />
+        </svg>
+    </h1>
+    <div class="py-20 px-12 flex items-center justify-center">
+        <div class="grid lg:grid-cols-4 lg:gap-10 gap-5">
+
+            {% for x in hot %}
+            {% if x.label == 'R' %}
+            <a href="{{ x.get_absolute_url }}" class="hover:shadow-2xl h-fit rounded-lg">
+                <img src="{{ x.image.url }}" alt="{{ x.title }}" class="h-[20rem] w-full rounded-t-lg">
+                <div class="lg:px-4 rounded-b-lg shadow lg:py-4">
+                    {% if x.label == 'R' %}
+                    <h1 class="text-xs font-bold text-teal-500 flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        RARE
+                    </h1>
+                    {% endif %}
+                    <p class="font-thin tracking-tight text-lg">
+                        {{ x.title }}
+                    </p>
+                    <p class="font-black text-xl">
+                        {% if x.discount_price %}
+                        &#8358;{{ x.discount_price|intcomma }}
+                        {% else %}
+                        &#8358;{{ x.price|intcomma }}
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <br><br><br>
+    </div>
+
+</section>
+{% endblock content %}

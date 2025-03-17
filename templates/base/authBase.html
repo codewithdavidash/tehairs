@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %} | TE Hairs</title>
+    <link rel="shortcut icon" href="{% static 'images/2.jpg' %}" type="image/x-icon">
+    <script src="{% static 'js/3.4.5.js' %}"></script>
+    <style>
+        .c {
+            color: rgb(50%, 0%, 13%);
+        }
+
+        .bg {
+            background-color: rgb(50%, 0%, 13%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="p-5">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+
+</html>
